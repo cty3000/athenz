@@ -22,7 +22,7 @@
 ## Build Athenz
 
 ```bash
-cd ${PROJECT_ROOT}/docker
+cd `git rev-parse --show-toplevel`/docker
 
 make build
 ```
@@ -33,7 +33,7 @@ make build
 ### DEV env.
 
 ```bash
-cd ${PROJECT_ROOT}/docker
+cd `git rev-parse --show-toplevel`/docker
 
 # 1. set passwords (P.S. values in *.properties files will overwrite these values)
 source ./setup-scripts/0.export-default-passwords.sh
@@ -109,7 +109,7 @@ keytool -list -keystore ./zts/var/certs/zts_truststore.jks
 <a id="markdown-wip-deploy-with-docker-stack" name="wip-deploy-with-docker-stack"></a>
 ## [WIP] deploy with docker-stack
 ```bash
-cd ${PROJECT_ROOT}
+cd `git rev-parse --show-toplevel`/docker
 
 # 1. set passwords (P.S. values in *.properties files will overwrite these values)
 source ./setup-scripts/0.export-default-passwords.sh
