@@ -2,7 +2,7 @@
 
 ## prepare access token
 ```bash
-cd ${PROJECT_ROOT}/docker
+cd `git rev-parse --show-toplevel`/docker
 
 # variables
 USER_TOKEN_PATH=${USER_TOKEN_PATH:-"`pwd`/deploy-scripts/user-token.txt"}
@@ -33,7 +33,7 @@ rc=$?; if [[ $rc != 0 ]]; then echo "something wrong..."; else printf "\nUser to
     - [x] 0.1. set up ZMS for testing
     - [x] 0.2. generate n-token
 ```bash
-cd ${PROJECT_ROOT}/docker
+cd `git rev-parse --show-toplevel`/docker
 
 # add garm.tester service to ZMS
 docker run --rm --net="${DOCKER_NETWORK}" \
