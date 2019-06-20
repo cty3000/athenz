@@ -32,12 +32,23 @@ run-docker-dev: run-zms-dev run-zts run-ui
 remove-docker:
 	docker ps -a | grep athenz- | awk '{print $$1}' | xargs docker stop
 	docker ps -a | grep athenz- | awk '{print $$1}' | xargs docker rm
-
+remove-network:
+	docker network rm $${DOCKER_NETWORK:-athenz}
 remove-files:
 	sudo rm -rf ./docker/logs
 	sudo rm -rf ./docker/zts/var/zts_store
 
-remove-all: remove-docker remove-files
+remove-all: remove-docker remove-network remove-files
 
-clean:
-	docker network rm $${DOCKER_NETWORK:-athenz}
+clean: remove-all
+	docker image rm wait-for-mysql
+	docker image rm rdl-athenz-server
+	docker image rm athenz-mvn-base
+	docker image rm athenz-builder
+	docker image rm athenz-zms-server
+	docker image rm athenz-zts-server
+	docker image rm athenz-ui
+	docker image rm athenz-zms-db
+	docker image rm athenz-zts-db
+	docker image rm athenz-zms-cli
+	docker image rm athenz-cli-util
