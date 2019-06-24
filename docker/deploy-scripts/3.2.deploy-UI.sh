@@ -14,17 +14,20 @@ UI_SERVICE_PK_PATH=${UI_SERVICE_PK_PATH:-./ui/var/keys/athenz.ui-server.pem}
 UI_SERVICE_PUB_PATH=${UI_SERVICE_PUB_PATH:-./ui/var/keys/athenz.ui-server_pub.pem}
 UI_HOST=${UI_HOST:-athenz-ui-server}
 UI_PORT=${UI_PORT:-443}
+ZMS_GATEWAY_IP=$(docker inspect -f "{{ .NetworkSettings.Networks.${DOCKER_NETWORK}.Gateway }}" athenz-zms-server)
+
 
 # start UI
 printf "\nWill start Athenz UI...\n"
 docker run -d -h ${UI_HOST} \
   -p "${UI_PORT}:${UI_PORT}" \
   --network="${DOCKER_NETWORK}" \
+  --add-host "${HOSTNAME}:${ZMS_GATEWAY_IP}" \
   -v "`pwd`/zts/conf/athenz.conf:/opt/athenz/ui/config/athenz.conf" \
   -v "`pwd`/${UI_PK_PATH}:/opt/athenz/ui/keys/ui_key.pem" \
   -v "`pwd`/${UI_X509_OUT_PATH}:/opt/athenz/ui/keys/ui_cert.pem" \
   -v "`pwd`/${UI_SERVICE_PK_PATH}:/opt/athenz/ui/keys/$(basename $UI_SERVICE_PK_PATH)" \
   -v "`pwd`/${UI_SERVICE_PUB_PATH}:/opt/athenz/ui/keys/$(basename $UI_SERVICE_PUB_PATH)" \
-  -e "ZMS_SERVER=localhost" \
-  -e "UI_SERVER=localhost" \
+  -e "ZMS_SERVER=${HOSTNAME}" \
+  -e "UI_SERVER=${HOSTNAME}" \
   --name athenz-ui athenz-ui
