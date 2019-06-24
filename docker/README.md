@@ -60,7 +60,25 @@ make clean
 
 <a id="markdown-configuration-details" name="configuration-details"></a>
 ## Configuration Details
-- [configuration.dev.md](./docs/configuration.dev.md)
+- development evnvironment
+    - [configuration.dev.md](./docs/configuration.dev.md)
+    - server ports
+        - `3306`: ZMS DB
+            - [zms-db.cnf](./db/zms/zms-db.cnf#L2)
+            - [zms.properties](./zms/conf/zms.properties#L154)
+            - ENV: `ZMS_DB_PORT` ([deploy script](./deploy-scripts/1.1.deploy-ZMS.sh#L12))
+        - `4443`: ZMS server
+            - [athenz.properties](./zms/conf/athenz.properties#L6)
+            - ENV: `ZMS_PORT` ([deploy script](./deploy-scripts/1.1.deploy-ZMS.sh#L14))
+        - `3307`: ZTS DB
+            - [zts-db.cnf](./db/zts/zts-db.cnf#L2)
+            - [zts.properties](./zts/conf/zts.properties#L211)
+            - ENV: `ZTS_DB_PORT` ([deploy script](./deploy-scripts/2.3.deploy-ZTS.sh#L12))
+        - `8443`: ZTS server
+            - [athenz.properties](./zts/conf/athenz.properties#L6)
+            - ENV: `ZTS_PORT` ([deploy script](./deploy-scripts/2.2.create-athenz-conf.sh#L17))
+        - `443`: UI
+            - ENV: `UI_PORT` ([deploy script](./deploy-scripts/3.2.deploy-UI.sh#L16))
 
 <a id="markdown-useful-commands" name="useful-commands"></a>
 ## Useful Commands
